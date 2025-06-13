@@ -1,17 +1,15 @@
 terraform {
-    cloud {
-      organization = "Zeynab"
-      
-      workspaces {
-        name = "Management"
-        
-      }
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "zeynab"
+
+    workspaces {
+      name = "Management"
     }
-  
+  }
 }
 
 
 provider "aws" {
-    region = "eu-west-1"
-  
+  region = var.region
 }
