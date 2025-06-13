@@ -1,3 +1,7 @@
+resource "aws_iam_account_alias" "alias" {
+  account_alias = var.alias
+}
+
 resource "aws_iam_user" "tf_manager" {
   name = "tf_manager"
 }
