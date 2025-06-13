@@ -149,7 +149,9 @@ resource "aws_iam_user_policy_attachment" "attach_dynamodb" {
 resource "aws_iam_user_policy_attachment" "attach_deny" {
   user       = aws_iam_user.tf_manager.name
   policy_arn = aws_iam_policy.non_free_tier_deny.arn
-}resource "aws_iam_account_alias" "alias" {
+}
+
+resource "aws_iam_account_alias" "alias" {
   account_alias = var.alias
 }
 
