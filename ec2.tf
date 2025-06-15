@@ -19,6 +19,12 @@ module "ec2_instance" {
   instance_type          = "t2.micro"
   monitoring             = true
   ami                    = "ami-01f23391a59163da9" 
+  root_block_device = [{
+    device_name           = "/dev/sda1"
+    volume_size           = 8
+    volume_type           = "gp3"
+    delete_on_termination = true
+  }]
   
   vpc_security_group_ids = [aws_security_group.giuseppe_sg.id] 
   subnet_id              = data.aws_subnets.default.ids[1]
