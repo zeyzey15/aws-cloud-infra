@@ -1,6 +1,7 @@
 module "ec2_instance" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "5.8.0"
   iam_instance_profile = aws_iam_instance_profile.giuseppe_profile.name 
-
   user_data = <<-EOF
               #!/bin/bash
               apt-get update -y
@@ -12,9 +13,7 @@ module "ec2_instance" {
               systemctl start snap.amazon-ssm-agent.amazon-ssm-agent.service
               EOF 
 
-  source  = "terraform-aws-modules/ec2-instance/aws"
-
-  name = "giuseppe_companyrome"
+name = "giuseppe_companyrome"
 
   instance_type          = "t2.micro"
   monitoring             = true
@@ -24,6 +23,7 @@ module "ec2_instance" {
     volume_size           = 8
     volume_type           = "gp3"
     delete_on_termination = true
+  
   }]
   
   vpc_security_group_ids = [aws_security_group.giuseppe_sg.id] 
