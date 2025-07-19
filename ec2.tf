@@ -1,6 +1,6 @@
 module "ec2_instance" {
   source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "5.8.0"
+  version = "6.0.0"
   iam_instance_profile = aws_iam_instance_profile.giuseppe_profile.name 
   user_data = <<-EOF
               #!/bin/bash
