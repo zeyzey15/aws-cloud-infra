@@ -22,7 +22,3 @@ data "aws_subnet" "default" {
 }
 
 
-import {
-  to = aws_db_instance.default[0]
-  id = "database-1"
-}

@@ -1,39 +1,4 @@
-module "ec2_instance" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  version = "6.0.0"
-  iam_instance_profile = aws_iam_instance_profile.giuseppe_profile.name 
-  user_data = <<-EOF
-              #!/bin/bash
-              apt-get update -y
-              apt-get install -y snapd
-              systemctl enable snapd
-              systemctl start snapd
-              snap install amazon-ssm-agent --classic
-              systemctl enable snap.amazon-ssm-agent.amazon-ssm-agent.service
-              systemctl start snap.amazon-ssm-agent.amazon-ssm-agent.service
-              EOF 
 
-name = "giuseppe_companyrome"
-
-  instance_type          = "t2.micro"
-  monitoring             = true
-  ami                    = "ami-01f23391a59163da9" 
-  root_block_device = [{
-    device_name           = "/dev/sda1"
-    volume_size           = 8
-    volume_type           = "gp3"
-    delete_on_termination = true
-  
-  }]
-  
-  vpc_security_group_ids = [aws_security_group.giuseppe_sg.id] 
-  subnet_id              = data.aws_subnets.default.ids[1]
-
-  tags = {
-    Terraform   = "true"
-    Environment = "dev"
-  }
-} 
 
 resource "aws_security_group" "giuseppe_sg" {
     egress {
