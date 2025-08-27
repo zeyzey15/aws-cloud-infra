@@ -132,4 +132,3 @@ resource "aws_iam_policy" "non_free_tier_deny" {
     ]
   })
 }
-

@@ -1,7 +1,7 @@
 
 
 resource "aws_security_group" "giuseppe_sg" {
-    egress {
+  egress {
     from_port        = 0
     to_port          = 0
     protocol         = "-1"
