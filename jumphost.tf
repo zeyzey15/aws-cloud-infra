@@ -2,7 +2,7 @@ resource "aws_instance" "JumpHost-SproutEats" {
   count             = var.create_jumphost ? 1 : 0
   ami               = data.aws_ami.ubuntu.id
   instance_type     = "t2.micro"
-  availability_zone = "eu-west-1a"
+  availability_zone = "eu-west-1c"
   subnet_id         = var.subnets_public[0]
   security_groups   = [aws_security_group.jumphost[0].id]
   tags = {
