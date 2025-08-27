@@ -10,10 +10,4 @@ output "first_default_subnet_cidr_block" {
   value = data.aws_subnet.default.cidr_block
 }
 
-output "sns_topic_arn" {
-  value = aws_sns_topic.notifications.arn
-}
 
-output "sns_topic_name" {
-  value = aws_sns_topic.notifications.name
-}

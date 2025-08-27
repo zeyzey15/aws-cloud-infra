@@ -8,5 +8,9 @@ resource "aws_cloudwatch_metric_alarm" "jumphost_cpu_utilization" {
   statistic                 = "Average"
   threshold                 = 80
   alarm_description         = "This metric monitors ec2 cpu utilization"
-  insufficient_data_actions = []
+  alarm_actions             = [aws_sns_topic.jumphost.arn]   
 }
+
+
+
+ 

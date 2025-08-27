@@ -34,3 +34,9 @@ variable "sns_topic_name" {
   description = "Optional SNS topic name. If empty, a default name is used."
   default     = ""
 }
+
+
+variable "email" {
+  type = string
+}
+

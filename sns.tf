@@ -1,7 +1,9 @@
-resource "aws_sns_topic" "notifications" {
-  name = var.sns_topic_name != "" ? var.sns_topic_name : "infra-notifications-${random_id.sns_suffix.hex}"
+resource "aws_sns_topic" "jumphost" {
+  name = "jumphost" 
 }
 
-resource "random_id" "sns_suffix" {
-  byte_length = 4
-}
+resource "aws_sns_topic_subscription" "personal-email" {
+  topic_arn = aws_sns_topic.jumphost.arn
+  protocol  = "email"
+  endpoint  = var.email
+}  
