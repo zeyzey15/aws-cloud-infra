@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket_data" {
-  bucket = "bucket_data${random_string.bucket.result}"
+  bucket = "bucket-data${random_string.bucket.result}"
 }
 
 resource "aws_s3_bucket_notification" "bucket_notifications" {
