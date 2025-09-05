@@ -22,3 +22,9 @@ data "aws_subnet" "default" {
 }
 
 
+resource "random_string" "bucket" {
+  length  = 16
+  upper   = true
+  lower   = true
+  special = false
+}
