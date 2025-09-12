@@ -132,3 +132,64 @@ resource "aws_iam_policy" "non_free_tier_deny" {
     ]
   })
 }
+
+
+# IAM role for Lambda
+resource "aws_iam_role" "lambda_execution_role" {
+  name = "s3-processor-lambda-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+
+# IAM policy for Lambda
+resource "aws_iam_role_policy" "lambda_policy" {
+  name = "lambda-s3-processor-policy"
+  role = aws_iam_role.lambda_execution_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "arn:aws:logs:*:*:*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:HeadObject"
+        ]
+        Resource = "${aws_s3_bucket.bucket_data.arn}/*"
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "s3:ListBucket"
+        ]
+        Resource = aws_s3_bucket.bucket_data.arn
+      }
+    ]
+  })
+}
+
+
+
+
