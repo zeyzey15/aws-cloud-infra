@@ -7,7 +7,8 @@ resource "aws_s3_bucket_notification" "bucket_notifications" {
 
   topic {
     topic_arn = aws_sns_topic.s3_bucket.arn
-    events    = ["s3:ObjectCreated:*"]
+  # send create/overwrite and delete events to SNS so the topic can trigger downstream consumers (Lambda)
+  events    = ["s3:ObjectCreated:*", "s3:ObjectRemoved:*"]
   }
 
   depends_on = [
