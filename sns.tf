@@ -18,6 +18,18 @@ resource "aws_sns_topic_subscription" "user_updates_email_target" {
   endpoint  = var.email
 }
 
+# SNS topic subscription for Lambda removed - S3 now triggers Lambda directly
+# resource "aws_sns_topic_subscription" "s3_to_lambda" {
+#   topic_arn = aws_sns_topic.s3_bucket.arn
+#   protocol  = "lambda"
+#   endpoint  = aws_lambda_function.s3_processor.arn
+#
+#   # Ensure the permission allowing SNS to invoke the Lambda exists before creating the subscription
+#   depends_on = [
+#     aws_lambda_permission.allow_sns_invoke,
+#   ]
+# }
+
 data "aws_iam_policy_document" "s3_topic_policy" {
   statement {
     sid = "AllowS3ToPublish"

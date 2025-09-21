@@ -3,7 +3,14 @@ resource "aws_instance" "JumpHost-SproutEats" {
   ami               = data.aws_ami.ubuntu.id
   instance_type     = "t2.micro"
   subnet_id         = var.subnets_public[0]
-  security_groups   = [aws_security_group.jumphost[0].id]
+  # For VPC instances use vpc_security_group_ids with SG IDs (not 'security_groups' which expects names in EC2-Classic)
+  vpc_security_group_ids = [aws_security_group.jumphost[0].id]
+
+  lifecycle {
+    # If an attribute forces replacement (e.g. AMI update), create the new instance before destroying the old one
+    # to avoid accidental downtime.
+    create_before_destroy = true
+  }
   tags = {
     Name = "JumpHost-SproutEats"
   }

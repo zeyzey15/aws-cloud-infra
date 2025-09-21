@@ -22,7 +22,6 @@ resource "aws_lambda_function" "s3_processor" {
     variables = {
       ENABLE_DETAILED_LOGGING = false
       LOG_LEVEL  = "DEBUG"
-  SNS_TOPIC_ARN = aws_sns_topic.s3_bucket.arn
     }
   }
 
@@ -38,13 +37,13 @@ resource "aws_cloudwatch_log_group" "lambda_logs" {
   retention_in_days = 14
 }
 
-# Lambda permission for SNS to invoke the function
-resource "aws_lambda_permission" "allow_sns_invoke" {
-  statement_id  = "AllowExecutionFromSNS"
+# Lambda permission for S3 to invoke the function
+resource "aws_lambda_permission" "allow_s3_invoke" {
+  statement_id  = "AllowExecutionFromS3"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.s3_processor.function_name
-  principal     = "sns.amazonaws.com"
-  source_arn    = aws_sns_topic.s3_bucket.arn
+  principal     = "s3.amazonaws.com"
+  source_arn    = "${aws_s3_bucket.bucket_data.arn}/*"
 }
 
 
