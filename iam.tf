@@ -185,6 +185,13 @@ resource "aws_iam_role_policy" "lambda_policy" {
           "s3:ListBucket"
         ]
         Resource = aws_s3_bucket.bucket_data.arn
+      },
+      {
+        Effect = "Allow"
+        Action = [
+          "sns:Publish"
+        ]
+        Resource = aws_sns_topic.s3_bucket.arn
       }
     ]
   })

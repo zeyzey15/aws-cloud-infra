@@ -22,6 +22,7 @@ resource "aws_lambda_function" "s3_processor" {
     variables = {
       ENABLE_DETAILED_LOGGING = false
       LOG_LEVEL  = "DEBUG"
+      SNS_TOPIC_ARN = aws_sns_topic.s3_bucket.arn
     }
   }
 
