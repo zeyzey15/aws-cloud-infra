@@ -9,6 +9,9 @@ data "archive_file" "lambda_zip" {
 
 # Lambda function
 resource "aws_lambda_function" "s3_processor" {
+  lifecycle {
+    ignore_changes = [ filename ]
+  }
   filename         = data.archive_file.lambda_zip.output_path
   function_name    = "s3-event-processor"
   role            = aws_iam_role.lambda_execution_role.arn

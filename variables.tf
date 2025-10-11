@@ -29,14 +29,13 @@ variable "vpc_zey" {
   type = string
 }
 
-variable "sns_topic_name" {
-  type        = string
-  description = "Optional SNS topic name. If empty, a default name is used."
-  default     = ""
-}
 
 
 variable "email" {
   type = string
 }
 
+
+variable "create_instance" {
+  type    = bool
+}
