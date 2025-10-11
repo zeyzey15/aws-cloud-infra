@@ -57,7 +57,7 @@ resource "aws_iam_instance_profile" "giuseppe_profile" {
 resource "aws_lb" "application" {
   name               = "application"
   load_balancer_type = "application"
-  subnets            = ["subnet-072dd71b1d3f23e22"]
+  subnets            = ["subnet-072dd71b1d3f23e22" , "subnet-0812669f38522b3b5"]
   security_groups    = [aws_security_group.web_traffic.id]
   internal           = false
 }
